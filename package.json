@@ -1,0 +1,21 @@
+{
+  "name": "201803",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "iconv-lite": "^0.4.23",
+    "mime1": "^2.3.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/jw-speed/201803.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

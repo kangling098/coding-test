@@ -1,0 +1,15 @@
+{
+  "name": "17.ajax",
+  "version": "1.0.0",
+  "description": "- http 1.0 1.1(keep-alive) \r - 2.0 https 双向通信 多路复用\r - 表单 form表单 页面跳转 post \r - ajax 用户体验好，可以无刷新页面 \r   单向通信 ajax1.0 ajax2.0",
+  "main": "1.form.server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "formidable": "^1.2.1"
+  }
+}

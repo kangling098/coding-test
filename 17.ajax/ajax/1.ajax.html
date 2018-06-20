@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 不支持跨域 协议 主机名 端口号 有一个不一样就算跨域 -->
+  <form onsubmit="login(event)" id="form">
+    用户名:
+    <input type="text" name="username">
+    <br> 密码:
+    <input type="text" name="password">
+    <br>
+    <input type="submit" value="提交">
+  </form>
+  <script>
+    let $ = document.querySelector.bind(document);
+    // username=123&password=456
+    // serialized 表单序列化 
+    function serialized(ele) {
+      let arr = [];
+      let elements = ele.elements;
+      for (let i = 0; i < elements.length; i++) {
+        let { type, name, value } = elements[i];
+        switch (type) {
+          case 'text':
+          case 'password':
+            arr.push(`${name}=${value}`);
+            break
+          default:
+        }
+      }
+      return arr.join('&');
+    }
+    function ajax(options) {
+      return new Promise((resolve,reject)=>{
+        let {
+          url = new Error('url must a string'),
+          method = "get",
+          dataType = "text",
+          data = null,
+          success,
+          contentType,
+          error
+        } = options;
+        let xhr = new XMLHttpRequest();
+        if (method == 'get') {
+          xhr.open(method, `${url}?${data}`, true);
+        } else {
+          xhr.open(method, url, true);
+          xhr.setRequestHeader('ContentType', contentType);
+        }
+        xhr.responseType = dataType;
+        xhr.onerror = function (err) {
+          error && error(err);
+          reject(err)
+        }
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
+              success && success(xhr.response);
+              resolve(xhr.response)
+            }
+          }
+        }
+        data = method === 'get' ? null : data;
+        xhr.send(data);
+      })
+    }
+    function login(e) {
+      e.preventDefault();
+      let qs = serialized($('#form')); // 
+      ajax({
+        url: '/login',
+        method: 'post',
+        dataType: 'json',
+        contentType:'application/www-x-form-urlencoded',
+        data: qs,
+      }).then(data=>{
+        console.log(data);
+      }).catch(e=>{
+        console.log(e);
+      });
+    }
+  </script>
+</body>
+
+</html>
+
+<script>
+  // let xhr = new XMLHttpRequest();
+  //   xhr.open('POST', `/login`, true); // true代表是否异步
+  //   // 0 表示还没有open 1代表open了 2 代表发送求求 3.接收到了部分请求
+  //   xhr.responseType = 'json';// 服务返回的应该是一个对象
+  //   xhr.timeout = 3000; // 3000过去了还没有数据返回就是超时
+  //   xhr.setRequestHeader('Content-Type', 'application/www-x-form-urlencoded');
+  //   // xhr.setRequestHeader('Content-Type','application/json')
+  //   xhr.ontimeout = function () {
+  //     console.log('超时')
+  //   }
+  //   xhr.onerror = function (err) {
+  //     console.log(err);
+  //   }
+  //   xhr.onreadystatechange = function () {
+  //     if (xhr.readyState === 4) {
+  //       if (xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
+  //         console.log(xhr.response);
+  //       }
+  //     }
+  //   }
+  //   xhr.send(qs); // a=b&c=d "{a:b,c:d}"
+</script>

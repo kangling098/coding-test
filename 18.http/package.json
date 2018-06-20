@@ -1,0 +1,15 @@
+{
+  "name": "18.http",
+  "version": "1.0.0",
+  "description": "",
+  "main": "1.cache.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mime": "^2.3.1"
+  }
+}

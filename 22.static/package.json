@@ -1,0 +1,21 @@
+{
+  "name": "zf-http-server1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "bin": {
+    "zf-http-server": "bin/www.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "debug": "^3.1.0",
+    "ejs": "^2.6.1",
+    "mime": "^2.3.1",
+    "yargs": "^11.0.0",
+    "yargs-parser": "^10.0.0"
+  }
+}
