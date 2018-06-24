@@ -1,0 +1,19 @@
+{
+  "name": "28.koa",
+  "version": "1.0.0",
+  "description": "- 设置cookie\r - session koa-session\r - koa-views  ejs\r - koa-static \r - koa自己写一个",
+  "main": "1.cookie.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^2.5.1",
+    "koa-router": "^7.4.0",
+    "koa-session": "^5.8.1",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.1.4"
+  }
+}

@@ -1,0 +1,1 @@
+import './code1/9.lifeCycle';

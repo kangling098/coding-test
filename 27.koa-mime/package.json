@@ -1,8 +1,8 @@
 {
-  "name": "25.express-mime",
+  "name": "koa-test",
   "version": "1.0.0",
   "description": "",
-  "main": "1.bodyParser.js",
+  "main": "1.koa-router.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ejs": "^2.6.1",
-    "express": "^4.16.3"
+    "koa": "^2.5.1",
+    "koa-better-body": "^3.0.4",
+    "koa-router": "^7.4.0"
   }
 }

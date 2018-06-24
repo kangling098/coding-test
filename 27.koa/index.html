@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 300px;
+            height: 200px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate3d(-50%, -50%, 0);
+            background: #f1f1f1;
+            text-align: center;
+            line-height: 200px;
+            display: none;
+        }
+
+        li {
+            list-style: none;
+            width: 200px;
+        }
+
+        li img {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        拖放到此区域
+    </div>
+    <div id="content">
+        <h1>预览上传的图片</h1>
+    </div>
+    <div>
+        <button id="upload">上传</button>
+    </div>
+    <meter min="0" max="100" id="meter" value="0"></meter>
+    <script>
+        let timer;
+        document.addEventListener('dragover', function (ev) {
+            box.style.display = 'block';
+            clearTimeout(timer); // 保留最后一次的离开 支出法一次
+            timer = setTimeout(function () {
+                box.style.display = 'none';
+            }, 500)
+        });
+        box.addEventListener('dragover', function (e) {
+            e.preventDefault();
+            this.innerText = '请放手'
+        })
+        box.addEventListener('dragleave', function () {
+            this.innerText = '拖放到此区域'
+        });
+        box.addEventListener('drop', function (e) {
+            e.preventDefault();
+            let fileList = e.dataTransfer.files;
+            [...fileList].forEach(file => {
+                // 拖拽后 放手 我们要读取这个两个文件的内容 FileReader
+                let reader = new FileReader(); // 创建文件读取器
+                reader.onload = function () { // 读取完毕后触发的事件
+                    let oLi = document.createElement('li');
+                    oLi.file = file; // li上存储着当前要提交的图片
+                    let oImg = document.createElement('img');
+                    oImg.src = this.result;
+                    let oA = document.createElement('a');
+                    oA.addEventListener('click',function(){
+                        content.removeChild(oLi);
+                    })
+                    oA.innerHTML = '删除';
+                    oLi.appendChild(oImg);
+                    oLi.appendChild(oA);
+                    content.appendChild(oLi);
+                }
+                reader.readAsDataURL(file)
+            });
+        })
+
+        upload.addEventListener('click',function(){
+            let oLis = document.getElementsByTagName('li');
+            // formData 表单数据 H5的方法
+            let formData = new FormData();
+            [...oLis].forEach(li=>{
+                formData.append('avatar',li.file);
+            });
+            let xhr = new XMLHttpRequest();
+            xhr.open('post','/upload',true);
+            // 监控上传的进度
+            xhr.upload.addEventListener('progress',function(e){
+                console.log(e.loaded,e.total)
+                meter.value = e.loaded/e.total*100;
+            })
+            xhr.onreadystatechange = function(){
+                if(xhr.readyState === 4){
+                    if(xhr.status === 200){
+                        alert('上传成功');
+                    }
+                }
+            }
+            xhr.send(formData);
+        })
+        // dragover
+        // dragleave
+        // drop
+    </script>
+</body>
+
+</html>

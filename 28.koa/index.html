@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <button id="login">登录</button>
+    <button id="valiadate">验证登录</button>
+  </div>
+  <script>
+    login.addEventListener('click',function () {
+      let xhr = new XMLHttpRequest();
+      xhr.open('get','/login',true);
+      xhr.send();
+    })
+    valiadate.addEventListener('click', function () {
+        let xhr = new XMLHttpRequest();
+        xhr.open('get', '/valiate', true);
+        xhr.onload = function () {
+          alert(xhr.response);
+        }
+        xhr.send();
+      })
+
+  </script>
+</body>
+</html>
